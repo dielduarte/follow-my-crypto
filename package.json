@@ -1,0 +1,33 @@
+{
+  "name": "followmycrypto",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "ios": "react-native run-ios --simulator",
+    "clear:cache": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache clean && npm install && npm start -- --reset-cache"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "react": "16.0.0",
+    "react-native": "0.51.0",
+    "react-native-elements": "^0.18.5",
+    "react-native-vector-icons": "^4.4.2"
+  },
+  "devDependencies": {
+    "babel-jest": "21.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "21.2.1",
+    "react-test-renderer": "16.0.0",
+    "watchman": "^1.0.0"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
