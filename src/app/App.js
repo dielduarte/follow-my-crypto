@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import CryptInfo from './components/crypto-info';
 import DataService from './services/data-service';
 import { SearchBar } from 'react-native-elements';
-
+import { StatusBarBackground } from './components/status-bar';
 
 export default class App extends React.Component {
 
@@ -41,6 +41,7 @@ export default class App extends React.Component {
     const txt = '&#xe9de;';
     return (
       <View>
+        <StatusBarBackground/>
         <SearchBar
           round
           onChangeText={this.filter.bind(this)}

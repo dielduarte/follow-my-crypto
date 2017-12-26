@@ -9,12 +9,11 @@ export default class CryptoInfo extends Component {
     render() {
         const Icon = createIconSetFromIcoMoon(icoMoonConfig);        
         return (
-            // <Text>Chassrles</Text>
             <Card
                 title={`${this.props.crypto.symbol} - ${this.props.crypto.name}`}
                 titleStyle={styles.title}
                 style={styles.container}>
-                <Icon name={this.props.crypto.symbol} size={30} color="#900" />
+                {/* <Icon name={this.props.crypto.symbol} size={30} color="#900" /> */}
                 <Text>R$ {parseFloat(this.props.crypto.price_brl).toFixed(2)}</Text>
             </Card>
         )
