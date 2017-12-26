@@ -4,7 +4,9 @@ import CryptInfo from './components/crypto-info';
 import DataService from './services/data-service';
 import { SearchBar } from 'react-native-elements';
 import { StatusBarBackground } from './components/status-bar';
-
+import { Store } from './state-management/store';
+import { Provider } from 'react-redux';
+import CryptoContainer from './components/crypto-container';
 export default class App extends React.Component {
 
 
@@ -37,28 +39,31 @@ export default class App extends React.Component {
   }
 
   render() {
-    
+
     const txt = '&#xe9de;';
     return (
-      <View>
-        <StatusBarBackground/>
-        <SearchBar
-          round
-          onChangeText={this.filter.bind(this)}
-          onClearText={() => { }}
-          placeholder='Pesquisar...' />
-        <ScrollView>
-          {
-            this.state.fontLoaded ? (
-              this.state.cryptos.filter((crypto, index) => {
-                return this.state.regexp.test(crypto.name);
-              }).map((crypto, index) => {
-                return <CryptInfo crypto={crypto} key={index}></CryptInfo>
-              })
-            ) : null
-          }
-        </ScrollView>
-      </View>
+      <Provider store={Store}>
+        <View>
+          <StatusBarBackground />
+          {/* <SearchBar
+            round
+            onChangeText={this.filter.bind(this)}
+            onClearText={() => { }}
+            placeholder='Pesquisar...' />
+          <ScrollView>
+            {
+              this.state.fontLoaded ? (
+                this.state.cryptos.filter((crypto, index) => {
+                  return this.state.regexp.test(crypto.name);
+                }).map((crypto, index) => {
+                  return <CryptInfo crypto={crypto} key={index}></CryptInfo>
+                })
+              ) : null
+            }
+          </ScrollView> */}
+          <CryptoContainer />
+        </View>
+      </Provider>
     );
   }
 }
