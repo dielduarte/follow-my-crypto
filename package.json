@@ -11,7 +11,7 @@
   },
   "remotedev": {
     "hostname": "localhost",
-    "port": 8081
+    "port": 5678
   },
   "dependencies": {
     "axios": "^0.17.1",

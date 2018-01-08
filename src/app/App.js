@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import CryptInfo from './components/crypto-info';
-import DataService from './services/data-service';
+// import DataService from './services/data-service';
 import { SearchBar } from 'react-native-elements';
 import { StatusBarBackground } from './components/status-bar';
 import { Store } from './state-management/store';
@@ -21,9 +21,9 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    DataService.GET().then((e) => {
-      this.setState({ cryptos: e.data });
-    });
+    // DataService.GET().then((e) => {
+    //   this.setState({ cryptos: e.data });
+    // });
 
     // console.log(Icon);
   }
@@ -43,13 +43,15 @@ export default class App extends React.Component {
     const txt = '&#xe9de;';
     return (
       <Provider store={Store}>
+      <ScrollView>
         <View>
           <StatusBarBackground />
-          {/* <SearchBar
+          <SearchBar
             round
             onChangeText={this.filter.bind(this)}
             onClearText={() => { }}
             placeholder='Pesquisar...' />
+          {/* 
           <ScrollView>
             {
               this.state.fontLoaded ? (
@@ -63,6 +65,7 @@ export default class App extends React.Component {
           </ScrollView> */}
           <CryptoContainer />
         </View>
+        </ScrollView>
       </Provider>
     );
   }
