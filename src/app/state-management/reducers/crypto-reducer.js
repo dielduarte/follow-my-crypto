@@ -1,10 +1,11 @@
 import { FETCHING_CRYPTO_DATA, FETCHING_CRYPTO_DATA_SUCCESS, FETCHING_CRYPTO_DATA_ERROR } from "../actions/crypto-action";
 
 const initialState = {
-    isFetching: null,
+    isFetching: false,
     data: [],
     hasError: null,
-    errorMessage: null
+    errorMessage: null,
+    refreshing: false
 }
 
 export default function(state = initialState, action){
