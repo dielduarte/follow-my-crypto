@@ -47,7 +47,9 @@ export class CryptoContainer extends Component {
                 <View>
                     {
                         (() => {
-                            return (crypto.data.map((coin, index) => {
+                            return (crypto.data.filter((crypto) => {
+                                return this.state.regexp.test(crypto.name);
+                            }).map((coin, index) => {
                                 return (
                                     <View key={index}>
                                         <CryptInfo crypto={coin} />
