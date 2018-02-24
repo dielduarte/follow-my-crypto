@@ -30,12 +30,7 @@ export class CryptoContainer extends Component {
     render() {
         const { crypto } = this.props;
 
-        return (<ScrollView refreshControl=
-            {
-                <RefreshControl
-                    refreshing={crypto.isFetching}
-                    onRefresh={this._onRefresh.bind(this)} />
-            }>
+        return (
             <View>
                 <StatusBarBackground />
                 <SearchBar
@@ -43,27 +38,35 @@ export class CryptoContainer extends Component {
                     onChangeText={this.filter.bind(this)}
                     onClearText={() => { }}
                     placeholder='Pesquisar...' />
-
-                <View>
+                <ScrollView refreshControl=
                     {
-                        (() => {
-                            return (crypto.data.filter((crypto) => {
-                                return this.state.regexp.test(crypto.name);
-                            }).map((coin, index) => {
-                                return (
-                                    <View key={index}>
-                                        <CryptInfo crypto={coin} />
-                                    </View>
-                                )
-                            }))
-                        })()
-                    }
-                </View>
+                        <RefreshControl
+                            refreshing={crypto.isFetching}
+                            onRefresh={this._onRefresh.bind(this)} />
+                    }>
+                    <View>                        
+                        <View>
+                            {
+                                (() => {
+                                    return (crypto.data.filter((crypto) => {
+                                        return this.state.regexp.test(crypto.name);
+                                    }).map((coin, index) => {
+                                        return (
+                                            <View key={index}>
+                                                <CryptInfo crypto={coin} />
+                                            </View>
+                                        )
+                                    }))
+                                })()
+                            }
+                        </View>
 
 
 
+                    </View>
+                </ScrollView>
             </View>
-        </ScrollView>);
+        );
     }
 
 
