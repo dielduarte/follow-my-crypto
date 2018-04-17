@@ -2,11 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import CryptInfo from './components/crypto-info';
 import DataService from './services/data-service';
-import { SearchBar } from 'react-native-elements';
 import { StatusBarBackground } from './components/status-bar';
+import LinearGradient from 'react-native-linear-gradient';
+import styles from './app.styles';
+import Search from './components/search';
+
+import LottieView from 'lottie-react-native';
 
 export default class App extends React.Component {
-
 
   constructor() {
     super();
@@ -14,20 +17,15 @@ export default class App extends React.Component {
       cryptos: [],
       filter: "",
       regexp: new RegExp(''),
-      fontLoaded: false
+      // fontLoaded: false
     }
   }
 
   componentDidMount() {
     DataService.GET().then((e) => {
+      console.log(e);
       this.setState({ cryptos: e.data });
     });
-
-    // console.log(Icon);
-  }
-
-  async componentWillMount() {
-    this.setState({ fontLoaded: true });
   }
 
   filter(t) {
@@ -37,40 +35,25 @@ export default class App extends React.Component {
   }
 
   render() {
-    
-    const txt = '&#xe9de;';
     return (
-      <View>
-        <StatusBarBackground/>
-        <SearchBar
+      <LinearGradient colors={['#4ECDC4', '#556270']} style={styles.container}>
+        <StatusBarBackground />
+        {/* <SearchBar
           round
           onChangeText={this.filter.bind(this)}
           onClearText={() => { }}
-          placeholder='Pesquisar...' />
-        <ScrollView>
+          placeholder='Pesquisar...' /> */}
+        <Search />
+        {/* <ScrollView>
           {
-            this.state.fontLoaded ? (
-              this.state.cryptos.filter((crypto, index) => {
-                return this.state.regexp.test(crypto.name);
-              }).map((crypto, index) => {
-                return <CryptInfo crypto={crypto} key={index}></CryptInfo>
-              })
-            ) : null
+            this.state.cryptos.filter((crypto, index) => {
+              return this.state.regexp.test(crypto.name);
+            }).map((crypto, index) => {
+              return <CryptInfo crypto={crypto} key={index}></CryptInfo>
+            })
           }
-        </ScrollView>
-      </View>
+        </ScrollView> */}
+      </LinearGradient>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginTop: 25,
-    marginBottom: 25
-
-  },
-  cryptFont: {
-  }
-});
