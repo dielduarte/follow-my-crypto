@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "lodash": "^4.17.5",
     "lottie-react-native": "2.3.2",
     "react": "16.0.0",
     "react-native": "0.54.2",

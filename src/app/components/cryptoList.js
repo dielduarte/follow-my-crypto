@@ -27,7 +27,7 @@ class CryptoList extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 35
+    marginTop: 0
   }
 });
 

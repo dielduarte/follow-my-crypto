@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import isEmpty from 'lodash/isEmpty';
 import CryptInfo from './components/crypto-info';
 import DataService from './services/data-service';
 import { StatusBarBackground } from './components/status-bar';
@@ -7,6 +8,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from './app.styles';
 import Search from './components/search';
 import CryptoList from './components/cryptoList';
+import Loading from './components/loading';
+
 
 import LottieView from 'lottie-react-native';
 
@@ -17,14 +20,12 @@ export default class App extends React.Component {
     this.state = {
       cryptos: [],
       filter: "",
-      regexp: new RegExp(''),
-      // fontLoaded: false
+      regexp: new RegExp('')
     }
   }
 
   componentDidMount() {
     DataService.GET().then((e) => {
-      console.log(e.data);
       this.setState({ cryptos: e.data });
     });
   }
@@ -36,11 +37,16 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { cryptos } = this.state;
+
     return (
       <LinearGradient colors={['#4ECDC4', '#556270']} style={styles.container}>
         <StatusBarBackground />
         <Search />
-        <CryptoList cryptos={this.state.cryptos} />
+        <Loading showLoading={isEmpty(cryptos)} />      
+        <CryptoList cryptos={cryptos} />
+
+     
         {/* <Image
           style={{ width: 50, height: 50 }}
           source={{ uri: 'https://follow-my-crypto.s3-sa-east-1.amazonaws.com/images/xrp.png' }}

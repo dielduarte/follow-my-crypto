@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    marginBottom: 25
   },
   animation: {
     right: 5,
