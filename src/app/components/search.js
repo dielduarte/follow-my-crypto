@@ -24,7 +24,6 @@ export default class Search extends Component {
 
   handleViewRef = ref => this.inputSearch = ref;
   
-
   startAnimation = () => {
     if(!this.open) {
       !this.state.renderInput && this.setState({ renderInput: true });
@@ -103,6 +102,7 @@ const styles = StyleSheet.create({
     top: 7,
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-    width: '90%'
+    width: '90%',
+    color: 'white'
   }
 });
