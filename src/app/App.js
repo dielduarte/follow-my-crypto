@@ -1,20 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import isEmpty from 'lodash/isEmpty';
 import CryptInfo from './components/crypto-info';
 import DataService from './services/data-service';
-import { SearchBar } from 'react-native-elements';
 import { StatusBarBackground } from './components/status-bar';
+import LinearGradient from 'react-native-linear-gradient';
+import styles from './app.styles';
+import Search from './components/search';
+import CryptoList from './components/cryptoList';
+import Loading from './components/loading';
+
+
+import LottieView from 'lottie-react-native';
 
 export default class App extends React.Component {
-
 
   constructor() {
     super();
     this.state = {
       cryptos: [],
       filter: "",
-      regexp: new RegExp(''),
-      fontLoaded: false
+      regexp: new RegExp('')
     }
   }
 
@@ -22,12 +28,6 @@ export default class App extends React.Component {
     DataService.GET().then((e) => {
       this.setState({ cryptos: e.data });
     });
-
-    // console.log(Icon);
-  }
-
-  async componentWillMount() {
-    this.setState({ fontLoaded: true });
   }
 
   filter(t) {
@@ -37,40 +37,30 @@ export default class App extends React.Component {
   }
 
   render() {
-    
-    const txt = '&#xe9de;';
+    const { cryptos } = this.state;
+
     return (
-      <View>
-        <StatusBarBackground/>
-        <SearchBar
-          round
-          onChangeText={this.filter.bind(this)}
-          onClearText={() => { }}
-          placeholder='Pesquisar...' />
-        <ScrollView>
+      <LinearGradient colors={['#4ECDC4', '#556270']} style={styles.container}>
+        <StatusBarBackground />
+        <Search />
+        <Loading showLoading={isEmpty(cryptos)} />      
+        <CryptoList cryptos={cryptos} />
+
+     
+        {/* <Image
+          style={{ width: 50, height: 50 }}
+          source={{ uri: 'https://follow-my-crypto.s3-sa-east-1.amazonaws.com/images/xrp.png' }}
+        /> */}
+        {/* <ScrollView>
           {
-            this.state.fontLoaded ? (
-              this.state.cryptos.filter((crypto, index) => {
-                return this.state.regexp.test(crypto.name);
-              }).map((crypto, index) => {
-                return <CryptInfo crypto={crypto} key={index}></CryptInfo>
-              })
-            ) : null
+            this.state.cryptos.filter((crypto, index) => {
+              return this.state.regexp.test(crypto.name);
+            }).map((crypto, index) => {
+              return <CryptInfo crypto={crypto} key={index}></CryptInfo>
+            })
           }
-        </ScrollView>
-      </View>
+        </ScrollView> */}
+      </LinearGradient>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginTop: 25,
-    marginBottom: 25
-
-  },
-  cryptFont: {
-  }
-});
