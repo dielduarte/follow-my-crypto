@@ -9,9 +9,11 @@ import styles from './app.styles';
 import Search from './components/search';
 import CryptoList from './components/cryptoList';
 import Loading from './components/loading';
+import CryptoDetails from './components/cryptoDetails';
 
 
 import LottieView from 'lottie-react-native';
+
 
 export default class App extends React.Component {
 
@@ -20,7 +22,9 @@ export default class App extends React.Component {
     this.state = {
       cryptos: [],
       filter: "",
-      regexp: new RegExp('')
+      regexp: new RegExp(''),
+      cryptoSelected: {},
+      showDetails: false
     }
   }
 
@@ -36,30 +40,23 @@ export default class App extends React.Component {
     });
   }
 
+  onSelected = (cryptoSelected) => {
+    this.setState({
+      cryptoSelected,
+      showDetails: true
+    })
+  }
+
   render() {
-    const { cryptos } = this.state;
+    const { cryptos, showDetails, cryptoSelected } = this.state;
 
     return (
       <LinearGradient colors={['#4ECDC4', '#556270']} style={styles.container}>
         <StatusBarBackground />
         <Search />
         <Loading showLoading={isEmpty(cryptos)} />      
-        <CryptoList cryptos={cryptos} />
-
-     
-        {/* <Image
-          style={{ width: 50, height: 50 }}
-          source={{ uri: 'https://follow-my-crypto.s3-sa-east-1.amazonaws.com/images/xrp.png' }}
-        /> */}
-        {/* <ScrollView>
-          {
-            this.state.cryptos.filter((crypto, index) => {
-              return this.state.regexp.test(crypto.name);
-            }).map((crypto, index) => {
-              return <CryptInfo crypto={crypto} key={index}></CryptInfo>
-            })
-          }
-        </ScrollView> */}
+        <CryptoList cryptos={cryptos} onSelected={this.onSelected} />
+        {showDetails && <CryptoDetails crypto={cryptoSelected}/>}
       </LinearGradient>
     );
   }
