@@ -23,10 +23,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginRight: 10,
     marginTop: 30,
-    resizeMode: 'contain',
-    right: 0,
-    position: 'absolute',
-    zIndex: 2
+    resizeMode: 'contain'
   }
 });
 

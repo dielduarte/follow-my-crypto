@@ -43,7 +43,7 @@ class CryptoDetails extends PureComponent {
         toValue: 0,
         duration: 500
       }
-    ).start();
+    ).start(() => this.props.onClose());
   }
 
   render() {
@@ -60,10 +60,6 @@ class CryptoDetails extends PureComponent {
           blurType="light"
           blurAmount={7}
         />
-
-        <Animatable.View animation="slideInRight" delay={400} duration={300} style={styles.centerView}>  
-          <Close onPress={() => this.animationOut()} />
-        </Animatable.View>
           
       <Animatable.View animation="bounceInDown" delay={300} style={styles.centerView}>
           <CryptoIcon
@@ -75,6 +71,10 @@ class CryptoDetails extends PureComponent {
         <Animatable.View animation="fadeIn" delay={400} style={styles.centerView}>
           <Text style={styles.name}>{crypto.name}</Text>
           <Text style={styles.price}>R$ {parseFloat(crypto.price_brl).toFixed(2)}</Text>
+        </Animatable.View>
+
+        <Animatable.View animation="slideInRight" delay={400} duration={300} style={styles.closeContainer}>
+          <Close onPress={() => this.animationOut()} />
         </Animatable.View>
       </Animated.View>
     );
@@ -104,6 +104,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
     marginTop: 10
+  },
+  closeContainer: {
+    right: 0,
+    position: 'absolute',
+    zIndex: 2
   }
 });
 

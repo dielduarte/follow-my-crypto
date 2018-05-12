@@ -57,7 +57,6 @@ export default class Search extends Component {
           style={styles.inputContainer}>
           {this.state.renderInput &&
             <TextInput
-              placeholder="Search..."
               style={styles.input}
               autoFocus={true}
             />
@@ -104,6 +103,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'white',
     width: '90%',
-    color: 'white'
+    color: 'white',
+    fontWeight: '200'
   }
 });
