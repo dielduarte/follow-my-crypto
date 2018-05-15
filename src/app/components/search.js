@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { 
-  StyleSheet, 
-  Text, 
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  Text,
   View,
-  Animated, 
+  Animated,
   Easing,
   TextInput,
   TouchableWithoutFeedback
-} from 'react-native';
-import LottieView from 'lottie-react-native';
-import * as Animatable from 'react-native-animatable';
+} from "react-native";
+import LottieView from "lottie-react-native";
+import * as Animatable from "react-native-animatable";
 
 export default class Search extends Component {
   constructor(props) {
@@ -22,18 +22,18 @@ export default class Search extends Component {
     this.open = false;
   }
 
-  handleViewRef = ref => this.inputSearch = ref;
-  
+  handleViewRef = ref => (this.inputSearch = ref);
+
   startAnimation = () => {
-    if(!this.open) {
+    if (!this.open) {
       !this.state.renderInput && this.setState({ renderInput: true });
       this.open = true;
-      
+
       Animated.timing(this.state.progress, {
         toValue: 0.6,
         duration: 800
       }).start();
-      
+
       this.inputSearch.bounceInRight(1000);
       return;
     }
@@ -45,23 +45,20 @@ export default class Search extends Component {
       toValue: 1,
       duration: 800
     }).start();
-  }
-
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <View></View>
-        <Animatable.View
-          ref={this.handleViewRef} 
-          style={styles.inputContainer}>
-          {this.state.renderInput &&
+        <View />
+        <Animatable.View ref={this.handleViewRef} style={styles.inputContainer}>
+          {this.state.renderInput && (
             <TextInput
               style={styles.input}
+              onChangeText={text => this.props.filter(text)}
               autoFocus={true}
             />
-          }
- 
+          )}
         </Animatable.View>
         <TouchableWithoutFeedback onPress={this.startAnimation}>
           <View>
@@ -69,23 +66,23 @@ export default class Search extends Component {
               ref={animation => {
                 this.animation = animation;
               }}
-              source={require('../assets/lottieFiles/search.json')}
+              source={require("../assets/lottieFiles/search.json")}
               style={styles.animation}
               loop={false}
               progress={this.state.progress}
             />
           </View>
-        </TouchableWithoutFeedback >
-      </View>  
-    )
+        </TouchableWithoutFeedback>
+      </View>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
     marginBottom: 25
   },
   animation: {
@@ -96,7 +93,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center"
   },
   input: {
     top: 7,
