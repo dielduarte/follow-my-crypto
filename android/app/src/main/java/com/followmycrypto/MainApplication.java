@@ -3,6 +3,7 @@ package com.followmycrypto;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.cmcewen.blurview.BlurViewPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.wix.interactable.Interactable;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new BlurViewPackage(),
             new LottiePackage(),
             new Interactable(),
             new LinearGradientPackage(),

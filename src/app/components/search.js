@@ -54,7 +54,6 @@ export default class Search extends Component {
         <Animatable.View ref={this.handleViewRef} style={styles.inputContainer}>
           {this.state.renderInput && (
             <TextInput
-              placeholder="Search..."
               style={styles.input}
               onChangeText={text => this.props.filter(text)}
               autoFocus={true}
@@ -99,8 +98,9 @@ const styles = StyleSheet.create({
   input: {
     top: 7,
     borderBottomWidth: 1,
-    borderBottomColor: "white",
-    width: "90%",
-    color: "white"
+    borderBottomColor: 'white',
+    width: '90%',
+    color: 'white',
+    fontWeight: '200'
   }
 });

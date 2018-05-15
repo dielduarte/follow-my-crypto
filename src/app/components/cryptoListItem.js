@@ -1,21 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import CryptoIcon from './cryptoIcon';
 
-const S3_PATH = 'https://follow-my-crypto.s3-sa-east-1.amazonaws.com/images/';
-
-const CryptoListItem = ({ crypto }) => {
-  const IMAGE_NAME = crypto.symbol.toLowerCase();
-  const IMAGE_PATH = `${S3_PATH}${IMAGE_NAME}.png`;
-
+const CryptoListItem = ({ crypto, onClick }) => {
   return (
-    <View style={styles.itemContainer}>
-      <Image
-        style={styles.icon} 
-        source={{ uri: IMAGE_PATH }} 
-      />
-      <Text> {crypto.symbol} </Text>
-    </View>
+    <TouchableWithoutFeedback onPress={() => onClick()}>
+      <View style={styles.itemContainer} >
+        <CryptoIcon symbol={crypto.symbol} />
+        <Text style={styles.symbol}>{crypto.symbol}</Text>
+      </View>
+    </TouchableWithoutFeedback>  
   )
 };
 
@@ -25,11 +20,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20
   },
-  icon: {
-    width: 30,
-    height: 30,
-    marginBottom: 5,
-    resizeMode: 'contain'
+  symbol: {
+    fontSize: 16,
+    fontWeight: '200',
+    color: 'white',
+    marginTop: 10
   }
 });
 

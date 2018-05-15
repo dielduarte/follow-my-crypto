@@ -1,3 +1,4 @@
+
 import React from "react";
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import isEmpty from "lodash/isEmpty";
@@ -9,8 +10,8 @@ import styles from "./app.styles";
 import Search from "./components/search";
 import CryptoList from "./components/cryptoList";
 import Loading from "./components/loading";
-
 import LottieView from "lottie-react-native";
+
 
 export default class App extends React.Component {
   constructor() {
@@ -18,6 +19,8 @@ export default class App extends React.Component {
     this.state = {
       cryptos: [],
       filter: "",
+      cryptoSelected: {},
+      showDewtails: false,
       regexp: new RegExp("")
     };
   }
@@ -28,14 +31,38 @@ export default class App extends React.Component {
     });
   }
 
-  filter(t) {
+  filter = (t) => {
+    const regex = new RegExp(t, "ig");
+    const { cryptos } = this.state;
+
+    const cryptosFiltered = cryptos.filter((crypto, index) => {
+      return regexw.test(crypto.name);
+    });
+
+    if (cryptosFiltered) {
+      this.setState({
+        cryptos: cryptosFiltered
+      });
+    }
+  }
+
+  onSelected = (cryptoSelected) => {
     this.setState({
-      regexp: new RegExp(t, "ig")
+      cryptoSelected,
+      showDetails: true
+    })
+  }
+  
+  toggleDetails = () => {
+    this.setState((current) => {
+      return {
+        showDetails: !current.showDetails
+      }
     });
   }
 
   render() {
-    const { cryptos } = this.state;
+    const { cryptos, showDetails, cryptoSelected } = this.state;
 
     return (
       <LinearGradient colors={["#4ECDC4", "#556270"]} style={styles.container}>
@@ -45,29 +72,9 @@ export default class App extends React.Component {
             this.filter(text);
           }}
         />
-        <Loading showLoading={isEmpty(cryptos)} />
-        <CryptoList
-          cryptos={cryptos.filter(crypto => {
-            return (
-              this.state.regexp.test(crypto.symbol) ||
-              this.state.regexp.test(crypto.name)
-            );
-          })}
-        />
-
-        {/* <Image
-          style={{ width: 50, height: 50 }}
-          source={{ uri: 'https://follow-my-crypto.s3-sa-east-1.amazonaws.com/images/xrp.png' }}
-        /> */}
-        {/* <ScrollView>
-          {
-            this.state.cryptos.filter((crypto, index) => {
-              return this.state.regexp.test(crypto.name);
-            }).map((crypto, index) => {
-              return <CryptInfo crypto={crypto} key={index}></CryptInfo>
-            })
-          }
-        </ScrollView> */}
+        <Loading showLoading={isEmpty(cryptos)} />      
+        <CryptoList cryptos={cryptos} onSelected={this.onSelected} />
+        {showDetails && <CryptoDetails crypto={cryptoSelected} onClose={() => this.toggleDetails()}/>}
       </LinearGradient>
     );
   }

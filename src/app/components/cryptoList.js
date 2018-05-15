@@ -5,7 +5,7 @@ import CryptoListItem from './cryptoListItem';
 
 class CryptoList extends PureComponent {
   render() {
-    const { cryptos } = this.props;
+    const { cryptos, onSelected } = this.props;
 
     if (!cryptos.length) {
       return null;
@@ -15,7 +15,7 @@ class CryptoList extends PureComponent {
       <Animatable.View animation="bounceInUp">
         <FlatList 
           data={cryptos}
-          renderItem={({ item, index }) => <CryptoListItem crypto={item} />}
+          renderItem={({ item, index }) => <CryptoListItem crypto={item} onClick={() => onSelected(item)} />}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={styles.container}
           numColumns={3}
@@ -27,7 +27,9 @@ class CryptoList extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 0
+    marginTop: 0,
+    paddingTop: 20,
+    // backgroundColor: 'red'
   }
 });
 
