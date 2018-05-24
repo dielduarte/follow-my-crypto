@@ -11,7 +11,7 @@ import Search from "./components/search";
 import CryptoList from "./components/cryptoList";
 import Loading from "./components/loading";
 import LottieView from "lottie-react-native";
-
+import CryptoDetails from './components/cryptoDetails';
 
 export default class App extends React.Component {
   constructor() {
