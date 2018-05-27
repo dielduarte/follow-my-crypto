@@ -18,6 +18,7 @@ export default class App extends React.Component {
 		this.state = {
 			cryptos: [],
 			filter: '',
+			cryptosFiltered: [],
 			cryptoSelected: {},
 			showDewtails: false,
 			regexp: new RegExp('')
@@ -34,15 +35,13 @@ export default class App extends React.Component {
 		const regex = new RegExp(t, 'ig');
 		const { cryptos } = this.state;
 
-		const cryptosFiltered = cryptos.filter((crypto, index) => {
-			return regex.test(crypto.name);
+		cryptos.forEach((crypto, index) => {
+			crypto.hidden = !regex.test(crypto.name);
 		});
-
-		if (cryptosFiltered) {
-			this.setState({
-				cryptos: cryptosFiltered
-			});
-		}
+		let cryptosShown = cryptos.filter(item => !item.hidden);
+		this.setState({
+			cryptosFiltered: cryptosShown
+		});
 	};
 
 	onSelected = cryptoSelected => {
@@ -61,7 +60,7 @@ export default class App extends React.Component {
 	};
 
 	render() {
-		const { cryptos, showDetails, cryptoSelected } = this.state;
+		const { cryptos, showDetails, cryptoSelected, cryptosFiltered } = this.state;
 
 		return (
 			<LinearGradient colors={['#4ECDC4', '#556270']} style={styles.container}>
@@ -72,7 +71,10 @@ export default class App extends React.Component {
 					}}
 				/>
 				<Loading showLoading={isEmpty(cryptos)} />
-				<CryptoList cryptos={cryptos} onSelected={this.onSelected} />
+				<CryptoList
+					cryptos={cryptosFiltered.length > 0 ? cryptosFiltered : cryptos}
+					onSelected={this.onSelected}
+				/>
 				{showDetails && <CryptoDetails crypto={cryptoSelected} onClose={() => this.toggleDetails()} />}
 			</LinearGradient>
 		);
