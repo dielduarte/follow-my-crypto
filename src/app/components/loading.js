@@ -10,12 +10,6 @@ class Loading extends PureComponent {
     this.animation.play();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.showLoading) {
-      this.loadingContainer.fadeOut(900);
-    }
-  }
-
   render() {
     return (
       <Animatable.View
