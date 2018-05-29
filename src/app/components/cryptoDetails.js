@@ -22,14 +22,14 @@ class CryptoDetails extends PureComponent {
 	animationIn() {
 		Animated.timing(this.state.opacity, {
 			toValue: 1,
-			duration: 500
+			duration: 300
 		}).start();
 	}
 
 	animationOut() {
 		Animated.timing(this.state.opacity, {
 			toValue: 0,
-			duration: 500
+			duration: 300
 		}).start(() => this.props.onClose());
 	}
 
@@ -67,16 +67,16 @@ class CryptoDetails extends PureComponent {
 			>
 				<BlurView style={styles.absoluteComponent} blurType="light" blurAmount={7} />
 
-				<Animatable.View animation="bounceInDown" delay={300} style={styles.centerView}>
+				<Animatable.View animation="bounceInDown" delay={200} style={styles.centerView}>
 					<CryptoIcon symbol={crypto.symbol} style={styles.icon} />
 				</Animatable.View>
 
-				<Animatable.View animation="fadeIn" delay={400} style={styles.centerView}>
+				<Animatable.View animation="fadeIn" delay={300} style={styles.centerView}>
 					<Text style={styles.name}>{crypto.name}</Text>
 					<Text style={styles.price}>R$ {this.FormatMoney(parseFloat(crypto.price_brl))}</Text>
 				</Animatable.View>
 
-				<Animatable.View animation="slideInRight" delay={400} duration={300} style={styles.closeContainer}>
+				<Animatable.View animation="slideInRight" delay={300} duration={200} style={styles.closeContainer}>
 					<Close onPress={() => this.animationOut()} />
 				</Animatable.View>
 			</Animated.View>
